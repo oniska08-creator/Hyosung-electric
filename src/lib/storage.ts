@@ -4,11 +4,14 @@ import sharp from 'sharp';
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
 const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
 
-if (!supabaseUrl || !supabaseKey) {
-  console.warn("Supabase credentials are missing. Backend storage features may fail.");
-}
+// 빌드 타임에 변수가 없더라도 에러로 프로세스가 중단되지 않도록 방어 코드 추가
+export const supabase = (supabaseUrl && supabaseKey) 
+  ? createClient(supabaseUrl, supabaseKey)
+  : null as any;
 
-export const supabase = createClient(supabaseUrl, supabaseKey);
+if (!supabase) {
+  console.warn("⚠️ Supabase credentials are missing. Backend storage features will not work.");
+}
 
 /**
  * 최적화된 WebP 포맷으로 이미지를 Supabase Storage에 업로드합니다.
@@ -43,6 +46,10 @@ export async function uploadOptimizedImage(
 
     const finalFileName = `${folder}/${Date.now()}-${safeFileName || 'image'}.webp`;
     console.log(`Uploading to Supabase: ${finalFileName}`);
+
+    if (!supabase) {
+      throw new Error("Supabase client is not initialized. Check your environment variables.");
+    }
 
     // 2. Supabase Storage 업로드
     const { data, error } = await supabase.storage
