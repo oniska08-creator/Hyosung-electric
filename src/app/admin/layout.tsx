@@ -10,6 +10,11 @@ export default async function AdminLayout({
   children: React.ReactNode;
 }) {
   const session = await getServerSession(authOptions);
+  console.log("Admin Session Debug:", {
+    user: session?.user,
+    role: (session?.user as any)?.role,
+    isSuper: (session?.user as any)?.role === "SUPER_ADMIN"
+  });
   const isSuperAdmin = (session?.user as any)?.role === "SUPER_ADMIN";
 
   const navLinks = [

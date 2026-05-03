@@ -3,11 +3,6 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { prisma } from "@/lib/prisma";
 import { compare } from "bcryptjs";
 
-// 서버 시작 시 고유 ID 생성 (메모리상에만 존재하여 재구동 시 변경됨)
-if (!(global as any)._server_start_id) {
-  (global as any)._server_start_id = Math.random().toString(36).substring(7);
-}
-
 export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
@@ -74,6 +69,6 @@ export const authOptions: NextAuthOptions = {
       },
     },
   },
-  // 서버 재구동 시 모든 세션을 무효화하기 위해 런타임 ID를 조합합니다.
-  secret: (process.env.NEXTAUTH_SECRET || "fallback_secret") + "_runtime_" + (global as any)._server_start_id,
+  // Vercel(서버리스) 환경에서는 런타임 랜덤 ID 대신 고정된 secret을 사용하여 세션 안정성을 유지합니다.
+  secret: process.env.NEXTAUTH_SECRET || "hyosung-electric-secure-key-2024",
 };
