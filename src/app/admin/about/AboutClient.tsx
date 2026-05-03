@@ -44,9 +44,17 @@ export default function AboutClient({ initialHistory, initialAbout }: { initialH
 
   const handleAboutSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setAboutLoading(true);
-    const formData = new FormData(e.currentTarget);
     
+    const formData = new FormData(e.currentTarget);
+    const existingMainImage = formData.get('existingMainImage') as string;
+    const mainImageFile = formData.get('mainImage') as File;
+
+    if (!existingMainImage && (!mainImageFile || mainImageFile.size === 0)) {
+      alert('기업 소개 메인 이미지를 업로드해주세요.');
+      return;
+    }
+
+    setAboutLoading(true);
     try {
       await updateAbout(formData);
       alert('기업 정보가 성공적으로 업데이트되었습니다.');
@@ -167,7 +175,7 @@ export default function AboutClient({ initialHistory, initialAbout }: { initialH
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="space-y-3">
                 <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-2">페이지 메인 타이틀</label>
-                <input name="title" defaultValue={initialAbout?.title || ""} className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl font-bold focus:ring-4 focus:ring-amber-500/10 transition-all outline-none" placeholder="에너지를 잇는 확실한 선택" />
+                <input name="title" defaultValue={initialAbout?.title || ""} required className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl font-bold focus:ring-4 focus:ring-amber-500/10 transition-all outline-none" placeholder="에너지를 잇는 확실한 선택" />
               </div>
               <div className="space-y-3">
                 <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-2">페이지 서브 타이틀</label>
@@ -181,6 +189,7 @@ export default function AboutClient({ initialHistory, initialAbout }: { initialH
                 name="philosophy" 
                 defaultValue={initialAbout?.philosophy || ""} 
                 rows={4} 
+                required
                 className="w-full px-8 py-6 bg-slate-50 border border-slate-100 rounded-[2rem] font-bold text-lg focus:ring-4 focus:ring-amber-500/10 focus:border-amber-500 transition-all outline-none resize-none" 
                 placeholder="기업의 핵심 철학을 입력하세요. (About 페이지 상단 노출)"
               />
@@ -191,6 +200,7 @@ export default function AboutClient({ initialHistory, initialAbout }: { initialH
                 name="vision" 
                 defaultValue={initialAbout?.vision || ""} 
                 rows={4} 
+                required
                 className="w-full px-8 py-6 bg-slate-50 border border-slate-100 rounded-[2rem] font-bold text-lg focus:ring-4 focus:ring-amber-500/10 focus:border-amber-500 transition-all outline-none resize-none" 
                 placeholder="효성전기가 그리는 미래를 입력하세요."
               />
@@ -267,6 +277,8 @@ export default function AboutClient({ initialHistory, initialAbout }: { initialH
                <input 
                  name="order" 
                  type="number" 
+                 min="1"
+                 required
                  defaultValue={editingItem?.order ?? (initialHistory.length > 0 ? Math.max(...initialHistory.map(h => h.order || 0)) + 1 : 1)} 
                  className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl font-bold focus:ring-2 focus:ring-amber-500/20 transition-all outline-none" 
                  placeholder="숫자가 작을수록 상단에 노출됩니다" 

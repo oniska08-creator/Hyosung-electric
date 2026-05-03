@@ -197,6 +197,7 @@ export default function ProjectsClient({ initialProjects, categories }: { initia
               <input 
                 name="completedAt" 
                 type="date" 
+                required
                 defaultValue={editingItem?.completedAt ? new Date(editingItem.completedAt).toISOString().split('T')[0] : ""} 
                 className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl font-bold text-lg focus:ring-2 focus:ring-amber-500/20 transition-all outline-none" 
               />
@@ -238,7 +239,7 @@ export default function ProjectsClient({ initialProjects, categories }: { initia
 
           <div className="space-y-3">
             <label className="text-sm font-black uppercase tracking-widest text-slate-400 ml-2">프로젝트 상세 설명</label>
-            <textarea name="description" defaultValue={editingItem?.description || ""} rows={3} className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl font-bold text-lg focus:ring-2 focus:ring-amber-500/20 transition-all outline-none resize-none" placeholder="납품 내역 및 공사 상세 내용을 입력하세요" />
+            <textarea name="description" defaultValue={editingItem?.description || ""} rows={3} required className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl font-bold text-lg focus:ring-2 focus:ring-amber-500/20 transition-all outline-none resize-none" placeholder="납품 내역 및 공사 상세 내용을 입력하세요" />
           </div>
 
           <div className="space-y-6">

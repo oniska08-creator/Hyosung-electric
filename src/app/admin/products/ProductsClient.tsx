@@ -197,8 +197,13 @@ export default function ProductsClient({ initialProducts, categories }: { initia
           </div>
 
           <div className="space-y-3">
-            <label className="text-sm font-black uppercase tracking-widest text-slate-400 ml-2">상세 사양</label>
-            <textarea name="spec" defaultValue={editingItem?.spec || ""} rows={3} className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl font-bold text-lg focus:ring-2 focus:ring-amber-500/20 transition-all outline-none resize-none" placeholder="모델명, 정격 등을 입력하세요" />
+            <label className="text-sm font-black uppercase tracking-widest text-slate-400 ml-2">상세 사양 (모델명, 규격 등)</label>
+            <input name="spec" defaultValue={editingItem?.spec || ""} required className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl font-bold text-lg focus:ring-2 focus:ring-amber-500/20 transition-all outline-none" placeholder="예: 3P 100A, WebP 최적화 등" />
+          </div>
+
+          <div className="space-y-3">
+            <label className="text-sm font-black uppercase tracking-widest text-slate-400 ml-2">제품 상세 설명</label>
+            <textarea name="description" defaultValue={editingItem?.description || ""} rows={3} required className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl font-bold text-lg focus:ring-2 focus:ring-amber-500/20 transition-all outline-none resize-none" placeholder="제품에 대한 상세 특징과 장점을 입력하세요" />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
