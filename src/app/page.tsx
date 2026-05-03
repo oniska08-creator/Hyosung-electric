@@ -25,19 +25,19 @@ export default function Home() {
             <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-primary/30 bg-primary/5 text-primary text-sm font-black uppercase tracking-[0.3em] mb-10">
               <Zap className="w-4 h-4 animate-pulse" /> 미래를 설계하는 전력 솔루션
             </div>
-            
+
             <h2 className="text-4xl md:text-7xl font-black text-white mb-10 tracking-tight leading-[1.1]">
               대한민국 전력 인프라의<br />
               <span className="gradient-text">&nbsp;든든한 파트너</span>, 효성전기
             </h2>
-            
+
             <p className="text-lg md:text-xl text-slate-300 mb-14 font-medium leading-relaxed max-w-2xl mx-auto">
               20년의 기술력과 최상급 자격이 보증하는 완벽한 설비.<br />
               지금 바로 전문가의 맞춤형 전력 솔루션을 무상으로 진단받으세요.
             </p>
 
             <div className="flex flex-col sm:flex-row justify-center items-center gap-8">
-              <Link 
+              <Link
                 href="/contact"
                 className="group px-12 py-6 bg-primary text-slate-950 font-black rounded-2xl hover:bg-amber-500 shadow-2xl shadow-primary/20 transition-all flex items-center gap-3 relative overflow-hidden"
               >
@@ -45,15 +45,15 @@ export default function Home() {
                 <span className="relative">상담 및 견적 신청</span>
                 <ArrowRight className="w-5 h-5 relative group-hover:translate-x-1 transition-transform" />
               </Link>
-              
+
               <div className="flex flex-col items-start px-6 border-l-2 border-slate-800">
                 <span className="text-primary text-sm font-black uppercase tracking-widest mb-1">직통 기술 상담</span>
-                <span className="text-3xl font-black text-white tracking-tight">02-555-8888</span>
+                <span className="text-3xl font-black text-white tracking-tight">02-896-8285</span>
               </div>
             </div>
           </motion.div>
         </div>
-        
+
         {/* Decorative Grid & Glows */}
         <div className="absolute inset-0 bg-grid-pattern opacity-[0.03] scale-150 rotate-12" />
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-1 bg-linear-to-r from-transparent via-primary/50 to-transparent" />
