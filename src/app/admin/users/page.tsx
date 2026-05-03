@@ -8,7 +8,7 @@ export default async function AdminUsersPage() {
   const session = await getServerSession(authOptions);
   
   // Only SUPER_ADMIN can access this page
-  if ((session?.user as any)?.role !== "SUPER_ADMIN") {
+  if (!session || (session.user as any).role !== "SUPER_ADMIN") {
     redirect("/admin");
   }
 
