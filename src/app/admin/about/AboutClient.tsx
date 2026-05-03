@@ -294,10 +294,10 @@ export default function AboutClient({ initialHistory, initialAbout }: { initialH
                  required
                  defaultValue={editingItem?.order ?? (initialHistory.length > 0 ? Math.max(...initialHistory.map(h => h.order || 0)) + 1 : 1)} 
                  className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl font-bold focus:ring-2 focus:ring-amber-500/20 transition-all outline-none" 
-                 placeholder="숫자가 작을수록 상단에 노출됩니다" 
+                 placeholder="숫자가 클수록 상단에 노출됩니다" 
                />
                <div className="mt-2 px-2 text-[10px] text-slate-400 font-bold uppercase tracking-widest">
-                 💡 팁: 숫자가 작을수록 먼저 보입니다. (현재 권장 순서: {initialHistory.length > 0 ? Math.max(...initialHistory.map(h => h.order || 0)) + 1 : 1})
+                 💡 팁: 숫자가 클수록 먼저 보입니다. 최신 연혁을 등록할 때는 기존보다 큰 숫자를 사용하세요. (현재 권장 순서: {initialHistory.length > 0 ? Math.max(...initialHistory.map(h => h.order || 0)) + 1 : 1})
                </div>
              </div>
           </div>
