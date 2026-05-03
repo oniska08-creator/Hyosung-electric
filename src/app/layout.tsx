@@ -4,6 +4,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import KakaoFAB from "@/components/common/KakaoFAB";
 import AuthProvider from "@/components/providers/AuthProvider";
+import InactivityLogout from "@/components/admin/InactivityLogout";
 
 export const metadata: Metadata = {
   title: "효성전기 | Hyosung Electric Systems",
@@ -19,6 +20,7 @@ export default function RootLayout({
     <html lang="ko">
       <body className="antialiased overflow-x-hidden">
         <AuthProvider>
+          <InactivityLogout />
           <Header />
           <main>{children}</main>
           <Footer />
