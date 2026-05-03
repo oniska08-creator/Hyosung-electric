@@ -87,6 +87,13 @@ export default function ProjectsClient({ initialProjects, categories }: { initia
         formData.append('existingImageUrls', url);
       });
 
+      // Validation: At least one image is required for projects
+      if (pendingImages.length === 0 && existingImagesToKeep.length === 0) {
+        alert('시공 현장 사진을 최소 하나 이상 등록해주세요.');
+        setLoading(false);
+        return;
+      }
+
       if (editingItem) {
         await updateProject(editingItem.id, formData);
       } else {

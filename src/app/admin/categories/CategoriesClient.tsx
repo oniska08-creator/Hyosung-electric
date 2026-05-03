@@ -131,7 +131,7 @@ export default function CategoriesClient({ productCategories, projectCategories 
 
           <div className="space-y-3">
             <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-2">노출 순서 (낮을수록 먼저 노출)</label>
-            <input name="order" type="number" defaultValue={editingItem?.order ?? (currentData.length + 1)} required className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl font-bold focus:ring-2 focus:ring-amber-500/20 transition-all outline-none" />
+            <input name="order" type="number" min="1" defaultValue={editingItem?.order ?? (currentData.length + 1)} required className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl font-bold focus:ring-2 focus:ring-amber-500/20 transition-all outline-none" />
           </div>
 
           <div className="pt-8 border-t border-slate-50 flex justify-end gap-5">

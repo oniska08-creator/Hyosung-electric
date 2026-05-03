@@ -132,14 +132,14 @@ export default function UsersClient({ initialUsers, currentUser }: { initialUser
 
           <div className="space-y-3">
             <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-2">로그인 아이디 (Username)</label>
-            <input name="username" type="text" defaultValue={editingItem?.username || ""} required className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl font-bold focus:ring-2 focus:ring-amber-500/20 transition-all outline-none" placeholder="admin_user" />
+            <input name="username" type="text" minLength={4} defaultValue={editingItem?.username || ""} required className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl font-bold focus:ring-2 focus:ring-amber-500/20 transition-all outline-none" placeholder="admin_user" />
           </div>
-
+ 
           <div className="space-y-3">
             <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-2">
               {editingItem ? "새 비밀번호 (변경 시에만 입력)" : "로그인 비밀번호"}
             </label>
-            <input name="password" type="password" required={!editingItem} className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl font-bold focus:ring-2 focus:ring-amber-500/20 transition-all outline-none" placeholder={editingItem ? "비밀번호 유지 시 공란" : "••••••••"} />
+            <input name="password" type="password" minLength={6} required={!editingItem} className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl font-bold focus:ring-2 focus:ring-amber-500/20 transition-all outline-none" placeholder={editingItem ? "비밀번호 유지 시 공란" : "••••••••"} />
           </div>
 
           <div className="pt-8 border-t border-slate-50 flex justify-end gap-5">

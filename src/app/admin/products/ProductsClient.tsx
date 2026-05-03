@@ -89,6 +89,13 @@ export default function ProductsClient({ initialProducts, categories }: { initia
         formData.append('existingImageUrls', url);
       });
 
+      // Validation: At least one image is required for products
+      if (pendingImages.length === 0 && existingImagesToKeep.length === 0) {
+        alert('최소 하나 이상의 제품 이미지가 필요합니다.');
+        setLoading(false);
+        return;
+      }
+
       if (editingItem) {
         await updateProduct(editingItem.id, formData);
       } else {
@@ -197,7 +204,7 @@ export default function ProductsClient({ initialProducts, categories }: { initia
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="space-y-3">
               <label className="text-sm font-black uppercase tracking-widest text-slate-400 ml-2">가격 (₩)</label>
-              <input name="price" type="number" defaultValue={editingItem?.price || 0} className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl font-bold text-lg focus:ring-2 focus:ring-amber-500/20 transition-all outline-none" />
+              <input name="price" type="number" min="0" defaultValue={editingItem?.price || 0} required className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl font-bold text-lg focus:ring-2 focus:ring-amber-500/20 transition-all outline-none" />
             </div>
             <div className="space-y-3">
               <label className="text-sm font-black uppercase tracking-widest text-slate-400 ml-2">디스플레이 설정</label>
