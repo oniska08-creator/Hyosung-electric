@@ -6,28 +6,22 @@ import AboutContent from "./AboutContent";
 export default async function AboutPage() {
   const [history, about] = await Promise.all([
     prisma.history.findMany({
-      orderBy: [
-        { year: 'desc' },
-        { month: 'desc' },
-        { order: 'asc' }
-      ]
+      orderBy: { order: 'asc' }
     }),
     prisma.about.findUnique({
       where: { id: "singleton" }
     })
   ]);
 
-  // Sort history numerically
+  // Sort history primarily by order, then year/month
   const sortedHistory = [...history].sort((a, b) => {
+    const orderDiff = (a.order || 0) - (b.order || 0);
+    if (orderDiff !== 0) return orderDiff;
+    
     const yearDiff = parseInt(b.year) - parseInt(a.year);
     if (yearDiff !== 0) return yearDiff;
     
-    const monthA = a.month ? parseInt(a.month) : 0;
-    const monthB = b.month ? parseInt(b.month) : 0;
-    const monthDiff = monthB - monthA;
-    if (monthDiff !== 0) return monthDiff;
-
-    return (a.order || 0) - (b.order || 0);
+    return (parseInt(b.month || "0")) - (parseInt(a.month || "0"));
   });
 
   // Fallback data if DB is empty

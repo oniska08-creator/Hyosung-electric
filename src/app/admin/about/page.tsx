@@ -4,10 +4,7 @@ import AboutClient from "./AboutClient";
 export default async function AboutAdminPage() {
   const [history, about] = await Promise.all([
     prisma.history.findMany({
-      orderBy: [
-        { year: 'desc' },
-        { month: 'desc' }
-      ]
+      orderBy: { order: 'asc' }
     }),
     prisma.about.findUnique({
       where: { id: "singleton" }

@@ -311,13 +311,24 @@ export async function deleteProject(id: string) {
 // --- History (About) Actions ---
 export async function createHistory(data: any) {
   try {
+    const order = parseInt(data.order) || 0;
+
+    // 중복 순서 확인
+    const existing = await prisma.history.findFirst({
+      where: { order }
+    });
+
+    if (existing) {
+      throw new Error(`이미 사용 중인 순서 번호(${order})입니다. 다른 번호를 입력해주세요.`);
+    }
+
     const history = await prisma.history.create({
       data: {
         year: data.year,
         month: data.month,
         title: data.title,
         content: data.content,
-        order: parseInt(data.order) || 0,
+        order: order,
       },
     });
     revalidatePath("/admin/about");
@@ -331,6 +342,20 @@ export async function createHistory(data: any) {
 
 export async function updateHistory(id: string, data: any) {
   try {
+    const order = parseInt(data.order) || 0;
+
+    // 중복 순서 확인 (자기 자신 제외)
+    const existing = await prisma.history.findFirst({
+      where: { 
+        order,
+        id: { not: id }
+      }
+    });
+
+    if (existing) {
+      throw new Error(`이미 사용 중인 순서 번호(${order})입니다. 다른 번호를 입력해주세요.`);
+    }
+
     const history = await prisma.history.update({
       where: { id },
       data: {
@@ -338,7 +363,7 @@ export async function updateHistory(id: string, data: any) {
         month: data.month,
         title: data.title,
         content: data.content,
-        order: parseInt(data.order) || 0,
+        order: order,
       },
     });
     revalidatePath("/admin/about");
