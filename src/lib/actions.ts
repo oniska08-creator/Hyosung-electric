@@ -319,7 +319,7 @@ export async function createHistory(data: any) {
     });
 
     if (existing) {
-      throw new Error(`이미 사용 중인 순서 번호(${order})입니다. 다른 번호를 입력해주세요.`);
+      return { success: false, error: `이미 사용 중인 순서 번호(${order})입니다. 다른 번호를 입력해주세요.` };
     }
 
     const history = await prisma.history.create({
@@ -333,10 +333,10 @@ export async function createHistory(data: any) {
     });
     revalidatePath("/admin/about");
     revalidatePath("/about");
-    return history;
+    return { success: true, data: history };
   } catch (error: any) {
     console.error("Create History Error:", error);
-    throw new Error("연혁 등록 중 서버 오류가 발생했습니다.");
+    return { success: false, error: "연혁 등록 중 서버 오류가 발생했습니다." };
   }
 }
 
@@ -353,7 +353,7 @@ export async function updateHistory(id: string, data: any) {
     });
 
     if (existing) {
-      throw new Error(`이미 사용 중인 순서 번호(${order})입니다. 다른 번호를 입력해주세요.`);
+      return { success: false, error: `이미 사용 중인 순서 번호(${order})입니다. 다른 번호를 입력해주세요.` };
     }
 
     const history = await prisma.history.update({
@@ -368,10 +368,10 @@ export async function updateHistory(id: string, data: any) {
     });
     revalidatePath("/admin/about");
     revalidatePath("/about");
-    return history;
+    return { success: true, data: history };
   } catch (error: any) {
     console.error("Update History Error:", error);
-    throw new Error("연혁 수정 중 서버 오류가 발생했습니다.");
+    return { success: false, error: "연혁 수정 중 서버 오류가 발생했습니다." };
   }
 }
 
@@ -508,10 +508,10 @@ export async function updateAbout(formData: FormData) {
 
     revalidatePath("/admin/about");
     revalidatePath("/about");
-    return about;
+    return { success: true, data: about };
   } catch (error: any) {
     console.error("Update About Error:", error);
-    throw new Error("기업 정보 수정 중 서버 오류가 발생했습니다.");
+    return { success: false, error: "기업 정보 수정 중 서버 오류가 발생했습니다." };
   }
 }
 

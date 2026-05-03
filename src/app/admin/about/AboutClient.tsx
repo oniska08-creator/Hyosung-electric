@@ -56,12 +56,17 @@ export default function AboutClient({ initialHistory, initialAbout }: { initialH
 
     setAboutLoading(true);
     try {
-      await updateAbout(formData);
+      const result = await updateAbout(formData);
+      if (result && !result.success) {
+        alert(result.error);
+        setAboutLoading(false);
+        return;
+      }
       alert('기업 정보가 성공적으로 업데이트되었습니다.');
       router.refresh();
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
-      alert('업데이트 중 오류가 발생했습니다.');
+      alert(error.message || '업데이트 중 오류가 발생했습니다.');
     } finally {
       setAboutLoading(false);
     }
@@ -74,17 +79,25 @@ export default function AboutClient({ initialHistory, initialAbout }: { initialH
     const data = Object.fromEntries(formData.entries());
     
     try {
+      let result;
       if (editingItem) {
-        await updateHistory(editingItem.id, data);
+        result = await updateHistory(editingItem.id, data);
       } else {
-        await createHistory(data);
+        result = await createHistory(data);
       }
+
+      if (result && !result.success) {
+        alert(result.error);
+        setLoading(false);
+        return;
+      }
+
       setIsModalOpen(false);
       setLoading(false);
       router.refresh();
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
-      alert('처리 중 오류가 발생했습니다.');
+      alert(error.message || '처리 중 오류가 발생했습니다.');
       setLoading(false);
     }
   };
