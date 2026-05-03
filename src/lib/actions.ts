@@ -491,7 +491,7 @@ export async function updateAbout(formData: FormData) {
 }
 
 // --- Inquiry Actions ---
-export async function createInquiry(data: { name: string, phone: string, location: string, message: string }) {
+export async function createInquiry(data: { name: string, phone: string, location: string, message: string, email?: string, company?: string }) {
   try {
     const inquiry = await prisma.inquiry.create({
       data: {
@@ -499,6 +499,8 @@ export async function createInquiry(data: { name: string, phone: string, locatio
         phone: data.phone,
         location: data.location,
         content: data.message,
+        email: data.email || null,
+        company: data.company || null,
       },
     });
     revalidatePath("/admin/inquiries");

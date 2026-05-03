@@ -11,7 +11,9 @@ export default function ContactPage() {
     name: "",
     phone: "",
     location: "",
-    message: ""
+    message: "",
+    email: "",
+    company: ""
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -52,7 +54,7 @@ export default function ContactPage() {
     try {
       await createInquiry(formData);
       alert("문의가 성공적으로 접수되었습니다. 담당자가 곧 연락드리겠습니다.");
-      setFormData({ name: "", phone: "", location: "", message: "" });
+      setFormData({ name: "", phone: "", location: "", message: "", email: "", company: "" });
     } catch (error) {
       console.error(error);
       alert("문의 접수 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
@@ -107,7 +109,7 @@ export default function ContactPage() {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  placeholder="담당자 성함"
+                  placeholder="담당자 성함 (필수)"
                   className="h-20 bg-white border border-slate-100 rounded-2xl px-8 flex items-center text-[#0a0a0a] text-lg font-bold shadow-sm focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all"
                 />
                 <input
@@ -116,17 +118,37 @@ export default function ContactPage() {
                   value={formData.phone}
                   onChange={handleChange}
                   required
-                  placeholder="연락처 (예: 010-0000-0000)"
+                  placeholder="연락처 (필수, 예: 010-0000-0000)"
                   className="h-20 bg-white border border-slate-100 rounded-2xl px-8 flex items-center text-[#0a0a0a] text-lg font-bold shadow-sm focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all"
                 />
               </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <input
+                  type="text"
+                  name="company"
+                  value={formData.company}
+                  onChange={handleChange}
+                  placeholder="업체명 / 소속 (선택사항)"
+                  className="h-20 bg-white border border-slate-100 rounded-2xl px-8 flex items-center text-[#0a0a0a] text-lg font-bold shadow-sm focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all"
+                />
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  placeholder="이메일 주소 (선택사항)"
+                  className="h-20 bg-white border border-slate-100 rounded-2xl px-8 flex items-center text-[#0a0a0a] text-lg font-bold shadow-sm focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all"
+                />
+              </div>
+
               <input
                 type="text"
                 name="location"
                 value={formData.location}
                 onChange={handleChange}
                 required
-                placeholder="현장명 / 지역 (예: 서울 금천구 지식산업센터)"
+                placeholder="현장명 / 지역 (필수, 예: 서울 금천구 지식산업센터)"
                 className="w-full h-20 bg-white border border-slate-100 rounded-2xl px-8 flex items-center text-[#0a0a0a] text-lg font-bold shadow-sm focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all"
               />
               <textarea
@@ -134,7 +156,7 @@ export default function ContactPage() {
                 value={formData.message}
                 onChange={handleChange}
                 required
-                placeholder="현장 상황 및 문의 내용을 상세히 적어주세요."
+                placeholder="현장 상황 및 문의 내용을 상세히 적어주세요. (필수)"
                 className="w-full h-64 bg-white border border-slate-100 rounded-2xl p-8 text-[#0a0a0a] text-lg font-bold shadow-sm focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all resize-none"
               />
               <button

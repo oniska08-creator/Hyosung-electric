@@ -17,8 +17,21 @@ export default async function AboutPage() {
     })
   ]);
 
+  // Sort history numerically
+  const sortedHistory = [...history].sort((a, b) => {
+    const yearDiff = parseInt(b.year) - parseInt(a.year);
+    if (yearDiff !== 0) return yearDiff;
+    
+    const monthA = a.month ? parseInt(a.month) : 0;
+    const monthB = b.month ? parseInt(b.month) : 0;
+    const monthDiff = monthB - monthA;
+    if (monthDiff !== 0) return monthDiff;
+
+    return (a.order || 0) - (b.order || 0);
+  });
+
   // Fallback data if DB is empty
-  const milestones = history.length > 0 ? history : [
+  const milestones = sortedHistory.length > 0 ? sortedHistory : [
     { year: "2024", title: "스마트 그리드 솔루션 런칭", content: "차세대 지능형 전력망 자재 공급 및 시공 서비스 시작" },
     { year: "2020", title: "정부 공인 우수 기술 기업", content: "고성능 차단기 및 전력 제어반 기술 연구소 설립" },
     { year: "2015", title: "효성전기 주식회사 설립", content: "산업용 전기자재 전문 유통 법인 전환" },

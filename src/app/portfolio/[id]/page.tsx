@@ -115,7 +115,9 @@ export default async function PortfolioDetailPage({ params }: PageProps) {
                     <Calendar size={20} />
                     <span className="text-xs font-black uppercase tracking-widest">가동 시작일</span>
                   </div>
-                  <div className="text-lg font-bold pl-8">2024 (산업 표준 준수)</div>
+                  <div className="text-lg font-bold pl-8">
+                    {project.completedAt ? new Date(project.completedAt).toLocaleDateString('ko-KR', { year: 'numeric', month: 'long' }) : '연도 정보 없음'}
+                  </div>
                 </div>
               </div>
 
