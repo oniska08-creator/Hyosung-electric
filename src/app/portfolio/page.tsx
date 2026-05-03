@@ -45,8 +45,8 @@ export default function PortfolioPage() {
           setCategories(names);
         } else {
           // Fallback if no categories registered
-          const allTags = projectsData.flatMap((p: any) => p.tags || []);
-          const uniqueTags = ["전체 실적", ...new Set(allTags)];
+          const allTags = (projectsData as any[]).flatMap((p: any) => (p.tags as string[]) || []);
+          const uniqueTags = ["전체 실적", ...Array.from(new Set(allTags))];
           setCategories(uniqueTags);
         }
       } catch (error) {

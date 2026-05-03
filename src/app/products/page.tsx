@@ -45,7 +45,7 @@ export default function ProductsPage() {
           setCategories(names);
         } else {
           // Fallback if no categories registered
-          const uniqueCats = ["전체", ...new Set(productsData.map((p: any) => p.category || "기타"))];
+          const uniqueCats = ["전체", ...Array.from(new Set((productsData as any[]).map((p: any) => (p.category as string) || "기타")))];
           setCategories(uniqueCats);
         }
       } catch (error) {
