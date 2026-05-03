@@ -1,0 +1,141 @@
+{
+  "project": {
+    "name": "DongAn HVAC",
+    "version": "0.1.0",
+    "description": "Premium HVAC Solution Provider website template",
+    "techStack": {
+      "framework": "Next.js 15 (App Router)",
+      "styling": "Tailwind CSS 4",
+      "database": "Prisma + PostgreSQL",
+      "stateManagement": "React Hooks + SWR",
+      "animation": "Framer Motion",
+      "icons": "Lucide React",
+      "authentication": "NextAuth.js"
+    }
+  },
+  "designSystem": {
+    "colors": {
+      "background": "#020617",
+      "foreground": "#f8fafc",
+      "primary": "#22d3ee",
+      "secondary": "#0e7490",
+      "slate": {
+        "950": "#020617",
+        "800": "#1e293b",
+        "700": "#334155"
+      }
+    },
+    "typography": {
+      "fontSans": "Pretendard",
+      "fontScale": {
+        "h1": "4xl to 6xl",
+        "h2": "2xl to 5xl",
+        "body": "base to xl"
+      },
+      "letterSpacing": "-0.02em"
+    },
+    "effects": {
+      "glassmorphism": "backdrop-blur-md border border-white/50",
+      "gradients": [
+        "from-cyan-400 to-blue-300",
+        "from-slate-950/80 via-transparent to-transparent"
+      ],
+      "animations": "Framer Motion (fade-in, scale, translate)"
+    }
+  },
+  "layout": {
+    "global": [
+      {
+        "component": "ClientHeader",
+        "position": "sticky",
+        "stickyOnScroll": true
+      },
+      {
+        "component": "Children",
+        "role": "main_content"
+      },
+      {
+        "component": "Footer",
+        "position": "bottom"
+      },
+      {
+        "component": "KakaoFAB",
+        "position": "fixed-bottom-right"
+      }
+    ]
+  },
+  "sections": [
+    {
+      "id": "hero",
+      "type": "split",
+      "content": {
+        "left": {
+          "title": "보이지 않는 쾌적함, 공간의 품격을 완성하다",
+          "subtitle": "LG 4WAY 시스템 에어컨의 압도적인 공조 설계.",
+          "ctas": [
+            { "label": "솔루션 자세히 보기", "link": "/products", "style": "primary" },
+            { "label": "도입 문의", "link": "/contact", "style": "outline" }
+          ]
+        },
+        "right": {
+          "media": "video",
+          "src": "/DongAn_Main.mp4",
+          "aspectRatio": "square"
+        }
+      }
+    },
+    {
+      "id": "representative_products",
+      "type": "grid",
+      "title": "우리의 대표 제품",
+      "grid": {
+        "cols": { "mobile": 2, "desktop": 4 },
+        "gap": "2 to 4",
+        "cardStyle": "overlay_hover"
+      }
+    },
+    {
+      "id": "portfolio_info",
+      "type": "split_info",
+      "content": {
+        "text": {
+          "h2": "20년의 노하우가 만드는 확실한 차이",
+          "p": "수많은 시공 실적이 증명하는 완벽한 디테일.",
+          "link": { "label": "시공사례 전체 보기", "path": "/portfolio" }
+        },
+        "gallery": {
+          "type": "grid",
+          "cols": 2,
+          "rows": 2
+        }
+      }
+    }
+  ],
+  "functionality": {
+    "routes": [
+      "/",
+      "/about",
+      "/products",
+      "/portfolio",
+      "/contact",
+      "/login",
+      "/admin",
+      "/admin/users"
+    ],
+    "apis": [
+      "/api/visits",
+      "/api/products",
+      "/api/portfolio",
+      "/api/auth"
+    ],
+    "dataModels": [
+      "Portfolio",
+      "Product",
+      "Inquiry",
+      "VisitorLog",
+      "User",
+      "CompanyInfo",
+      "History"
+    ]
+  }
+}

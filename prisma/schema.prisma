@@ -1,0 +1,92 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Admin {
+  id        String   @id @default(cuid())
+  username  String   @unique
+  password  String
+  name      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  role      String   @default("ADMIN")
+}
+
+model Product {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  category    String
+  spec        String?
+  price       Int?     @default(0)
+  isPublic    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  imageUrls   String[] @default([])
+}
+
+model Project {
+  id          String    @id @default(cuid())
+  title       String
+  description String?
+  capacity    String?
+  location    String?
+  tags        String[]
+  completedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  imageUrls   String[]  @default([])
+}
+
+model Inquiry {
+  id        String   @id @default(cuid())
+  name      String
+  email     String?
+  phone     String
+  company   String?
+  content   String
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+  location  String?
+}
+
+model History {
+  id        String   @id @default(cuid())
+  year      String
+  month     String?
+  title     String
+  content   String?
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model About {
+  id         String   @id @default("singleton")
+  mainImage  String?
+  philosophy String?
+  vision     String?
+  updatedAt  DateTime @updatedAt
+  subtitle   String?
+  title      String?
+}
+
+model ProductCategory {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+}
+
+model ProjectCategory {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+}
