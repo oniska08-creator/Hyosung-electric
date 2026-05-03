@@ -1,7 +1,12 @@
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { prisma } from "@/lib/prisma";
-import { compare } from "bcryptjs"; // 비밀번호 해시 비교용 (추가 설치 필요)
+import { compare } from "bcryptjs";
+
+// 서버 시작 시 고유 ID 생성 (메모리상에만 존재하여 재구동 시 변경됨)
+if (!(global as any)._server_start_id) {
+  (global as any)._server_start_id = Math.random().toString(36).substring(7);
+}
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -70,10 +75,5 @@ export const authOptions: NextAuthOptions = {
     },
   },
   // 서버 재구동 시 모든 세션을 무효화하기 위해 런타임 ID를 조합합니다.
-  secret: process.env.NEXTAUTH_SECRET + "_runtime_" + (global as any)._server_start_id,
+  secret: (process.env.NEXTAUTH_SECRET || "fallback_secret") + "_runtime_" + (global as any)._server_start_id,
 };
-
-// 서버 시작 시 고유 ID 생성 (메모리상에만 존재하여 재구동 시 변경됨)
-if (!(global as any)._server_start_id) {
-  (global as any)._server_start_id = Math.random().toString(36).substring(7);
-}
