@@ -2,11 +2,21 @@
 
 import { useEffect, useRef } from "react";
 import { signOut, useSession } from "next-auth/react";
+import { usePathname, useRouter } from "next/navigation";
 
 export default function InactivityLogout() {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
+  const pathname = usePathname();
+  const router = useRouter();
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   
+  // 관리자 페이지에서 세션이 끊긴 경우 즉시 로그인 페이지로 이동
+  useEffect(() => {
+    if (status === "unauthenticated" && pathname.startsWith("/admin")) {
+      router.replace("/login");
+    }
+  }, [status, pathname, router]);
+
   // 20분 (1200초)
   const INACTIVITY_LIMIT = 20 * 60 * 1000;
 
