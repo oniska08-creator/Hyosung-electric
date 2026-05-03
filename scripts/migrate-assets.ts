@@ -28,7 +28,7 @@ async function migrateImages() {
       const buf = Buffer.from(await res.arrayBuffer());
       
       const newUrl = await uploadOptimizedImage(buf, 'products', `${p.id}_final.webp`);
-      await prisma.product.update({ where: { id: p.id }, data: { imageUrl: newUrl } });
+      await prisma.product.update({ where: { id: p.id }, data: { imageUrls: [newUrl] } });
       
       console.log(`   ✅ [${i+1}/${products.length}] ${p.name.substring(0,25)}... Ready`);
       await new Promise(r => setTimeout(r, 300)); // Throttling
@@ -51,7 +51,7 @@ async function migrateImages() {
       const buf = Buffer.from(await res.arrayBuffer());
       
       const newUrl = await uploadOptimizedImage(buf, 'projects', `${pj.id}_final.webp`);
-      await prisma.project.update({ where: { id: pj.id }, data: { imageUrl: newUrl } });
+      await prisma.project.update({ where: { id: pj.id }, data: { imageUrls: [newUrl] } });
       
       console.log(`   ✅ [${i+1}/${projects.length}] ${pj.title.substring(0,25)}... Ready`);
       await new Promise(r => setTimeout(r, 300));
