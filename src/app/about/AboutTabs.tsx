@@ -292,15 +292,6 @@ function AboutTabsInner({ about, milestones }: AboutTabsProps) {
 
                     <div className="pt-4 border-t border-slate-50 flex flex-wrap gap-2">
                       <a 
-                        href={`https://map.kakao.com/link/search/${encodeURIComponent(mapQuery)}`} 
-                        target="_blank" 
-                        rel="noreferrer"
-                        className="px-4 py-2 bg-[#fee500] text-[#000000] rounded-xl font-black text-xs flex items-center gap-1.5 hover:bg-[#edd500] transition-all no-underline"
-                      >
-                        <span>카카오맵으로 열기</span>
-                        <ExternalLink className="w-3.5 h-3.5" />
-                      </a>
-                      <a 
                         href={`https://map.naver.com/v5/search/${encodeURIComponent(mapQuery)}`} 
                         target="_blank" 
                         rel="noreferrer"

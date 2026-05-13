@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import KakaoFAB from "@/components/common/KakaoFAB";
 import AuthProvider from "@/components/providers/AuthProvider";
 import InactivityLogout from "@/components/admin/InactivityLogout";
 
@@ -24,7 +23,6 @@ export default function RootLayout({
           <Header />
           <main>{children}</main>
           <Footer />
-          <KakaoFAB />
         </AuthProvider>
       </body>
     </html>
