@@ -13,9 +13,9 @@ export default function ProjectsClient({ initialProjects, categories }: { initia
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingItem, setEditingItem] = useState<any>(null);
   const [loading, setLoading] = useState(false);
-  
+
   // 누적 이미지 관리를 위한 상태
-  const [pendingImages, setPendingImages] = useState<{file: File, preview: string}[]>([]);
+  const [pendingImages, setPendingImages] = useState<{ file: File, preview: string }[]>([]);
   const [existingImagesToKeep, setExistingImagesToKeep] = useState<string[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -73,9 +73,9 @@ export default function ProjectsClient({ initialProjects, categories }: { initia
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-    
+
     const formData = new FormData(e.currentTarget);
-    
+
     try {
       // Append files
       pendingImages.forEach(({ file }) => {
@@ -99,7 +99,7 @@ export default function ProjectsClient({ initialProjects, categories }: { initia
       } else {
         await createProject(formData);
       }
-      
+
       pendingImages.forEach(img => URL.revokeObjectURL(img.preview));
       finishSubmit();
     } catch (error: any) {
@@ -116,8 +116,8 @@ export default function ProjectsClient({ initialProjects, categories }: { initia
   };
 
   const columns = [
-    { 
-      key: 'imageUrls', 
+    {
+      key: 'imageUrls',
       label: '현장사진',
       render: (item: any) => (
         <div className="w-24 h-16 bg-slate-50 rounded-2xl overflow-hidden shadow-sm border border-slate-100">
@@ -132,13 +132,13 @@ export default function ProjectsClient({ initialProjects, categories }: { initia
     { key: 'title', label: '공사/납품명' },
     { key: 'capacity', label: '규모/용량' },
     { key: 'location', label: '위치' },
-    { 
-      key: 'completedAt', 
+    {
+      key: 'completedAt',
       label: '가동 시작일',
       render: (item: any) => item.completedAt ? new Date(item.completedAt).toLocaleDateString() : '-'
     },
-    { 
-      key: 'tags', 
+    {
+      key: 'tags',
       label: '분류태그',
       render: (item: any) => (
         <div className="flex flex-wrap gap-2">
@@ -155,22 +155,22 @@ export default function ProjectsClient({ initialProjects, categories }: { initia
 
   return (
     <div className="pb-20">
-      <AdminHeader 
-        title="시공·납품 실적 아카이브"
-        description="효성전기의 대규모 인프라 구축 실적을 관리합니다. 대한민국 전역에 구축된 주요 설비 프로젝트를 등록하십시오."
+      <AdminHeader
+        title="납품 실적"
+        description="납품 실적을 관리합니다. 대한민국 전역에 구축된 주요 프로젝트를 등록하십시오."
         buttonText="신규 실적 등록"
         onButtonClick={handleCreate}
       />
 
-      <AdminTable 
-        columns={columns} 
-        data={initialProjects} 
+      <AdminTable
+        columns={columns}
+        data={initialProjects}
         onEdit={handleEdit}
         onDelete={handleDelete}
       />
 
-      <AdminModal 
-        isOpen={isModalOpen} 
+      <AdminModal
+        isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         title={editingItem ? "실적 정보 수정" : "신규 실적 등록"}
       >
@@ -194,22 +194,22 @@ export default function ProjectsClient({ initialProjects, categories }: { initia
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="space-y-3">
               <label className="text-sm font-black uppercase tracking-widest text-slate-400 ml-2">가동 시작일</label>
-              <input 
-                name="completedAt" 
-                type="date" 
+              <input
+                name="completedAt"
+                type="date"
                 required
-                defaultValue={editingItem?.completedAt ? new Date(editingItem.completedAt).toISOString().split('T')[0] : ""} 
-                className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl font-bold text-lg focus:ring-2 focus:ring-amber-500/20 transition-all outline-none" 
+                defaultValue={editingItem?.completedAt ? new Date(editingItem.completedAt).toISOString().split('T')[0] : ""}
+                className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl font-bold text-lg focus:ring-2 focus:ring-amber-500/20 transition-all outline-none"
               />
             </div>
             <div className="space-y-3">
               <label className="text-sm font-black uppercase tracking-widest text-slate-400 ml-2">분류 태그 (콤마로 구분)</label>
-              <input 
+              <input
                 id="tags-input"
-                name="tagsString" 
-                defaultValue={editingItem?.tags?.join(', ') || ""} 
-                className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl font-bold text-lg focus:ring-2 focus:ring-amber-500/20 transition-all outline-none" 
-                placeholder="변압기, 배전반, 경기도" 
+                name="tagsString"
+                defaultValue={editingItem?.tags?.join(', ') || ""}
+                className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl font-bold text-lg focus:ring-2 focus:ring-amber-500/20 transition-all outline-none"
+                placeholder="변압기, 배전반, 경기도"
               />
               {categories.length > 0 && (
                 <div className="flex flex-wrap gap-2 mt-2 px-2">
@@ -244,19 +244,19 @@ export default function ProjectsClient({ initialProjects, categories }: { initia
 
           <div className="space-y-6">
             <label className="text-sm font-black uppercase tracking-widest text-slate-400 ml-2">현장 사진 라이브러리</label>
-            
+
             {/* Upload Zone */}
-            <div 
+            <div
               onClick={() => fileInputRef.current?.click()}
               className="group cursor-pointer p-12 border-2 border-dashed border-slate-100 rounded-[2.5rem] bg-slate-50/30 flex flex-col items-center justify-center gap-4 hover:border-amber-500/40 hover:bg-amber-50/10 transition-all duration-500"
             >
-              <input 
-                type="file" 
+              <input
+                type="file"
                 ref={fileInputRef}
                 onChange={handleFileChange}
-                multiple 
-                accept="image/*" 
-                className="hidden" 
+                multiple
+                accept="image/*"
+                className="hidden"
               />
               <div className="w-16 h-16 rounded-full bg-white shadow-xl flex items-center justify-center text-slate-400 group-hover:scale-110 group-hover:text-amber-600 transition-all duration-500">
                 <UploadCloud size={32} />
@@ -275,8 +275,8 @@ export default function ProjectsClient({ initialProjects, categories }: { initia
                   <div key={`existing-${idx}`} className="group relative aspect-video rounded-2xl overflow-hidden border-2 border-white shadow-sm">
                     <img src={url} alt="existing" className="w-full h-full object-cover" />
                     <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                      <button 
-                        type="button" 
+                      <button
+                        type="button"
                         onClick={() => removeExistingImage(idx)}
                         className="w-8 h-8 rounded-full bg-white text-rose-500 flex items-center justify-center hover:scale-110 transition-transform"
                       >
@@ -292,8 +292,8 @@ export default function ProjectsClient({ initialProjects, categories }: { initia
                   <div key={`pending-${idx}`} className="group relative aspect-video rounded-2xl overflow-hidden border-2 border-amber-300 shadow-md">
                     <img src={img.preview} alt="pending" className="w-full h-full object-cover" />
                     <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                      <button 
-                        type="button" 
+                      <button
+                        type="button"
                         onClick={() => removePendingImage(idx)}
                         className="w-8 h-8 rounded-full bg-white text-rose-500 flex items-center justify-center hover:scale-110 transition-transform"
                       >

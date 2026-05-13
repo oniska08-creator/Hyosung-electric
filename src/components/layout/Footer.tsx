@@ -26,7 +26,7 @@ export default function Footer() {
             <ul className="space-y-4 text-base font-bold text-slate-400">
               <li>T. 02-896-8285</li>
               <li>E. contact@hyosung-elec.com</li>
-              <li>A. 서울 금천구 시흥동 984</li>
+              <li>A. 서울 금천구 시흥대로 97 21동 121</li>
             </ul>
           </div>
         </div>

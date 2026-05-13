@@ -76,7 +76,7 @@ export default function ContactPage() {
           {[
             { icon: <Phone size={32} />, title: "기술 지원 및 상담", info: "02-896-8285", sub: "자재 선정 및 시공 기술 문의" },
             { icon: <Mail size={32} />, title: "견적 및 발주 문의", info: "sales@hyosung-elec.com", sub: "도면 검토 및 대량 발주 견적" },
-            { icon: <MapPin size={32} />, title: "효성 물류 센터", info: "서울 금천구 시흥동 984", sub: "자재 픽업 및 전국 배송 거점" },
+            { icon: <MapPin size={32} />, title: "효성 물류 센터", info: "서울 금천구 시흥대로 97 21동 121", sub: "자재 픽업 및 전국 배송 거점" },
           ].map((item, idx) => (
             <motion.div
               key={idx}

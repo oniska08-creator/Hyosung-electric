@@ -38,7 +38,6 @@ export default async function AdminDashboard() {
           <div className="text-sm font-black text-primary uppercase tracking-[0.3em] mb-4">통합 관제 센터</div>
           <h1 className="text-4xl md:text-6xl font-black mb-6 tracking-tight leading-none uppercase">전력 설비 통합 관제</h1>
           <p className="text-slate-600 text-lg max-w-2xl leading-relaxed font-bold">
-            효성전기 전국 사업장의 자재 수급 현황과 시공 운영 상태를 실시간으로 모니터링하십시오.
           </p>
         </div>
         <div className="absolute top-1/2 right-0 -translate-y-1/2 w-80 h-80 bg-primary/5 blur-[100px] -mr-40" />
@@ -111,13 +110,13 @@ export default async function AdminDashboard() {
               <div key={project.id} className="px-10 py-6 flex items-center gap-5 hover:bg-slate-50/50 transition-all">
                 <div className="w-16 h-12 bg-slate-100 rounded-xl flex items-center justify-center overflow-hidden">
                   {project.imageUrls?.[0] ? (
-                     <Image 
-                      src={project.imageUrls[0]} 
-                      alt="" 
+                    <Image
+                      src={project.imageUrls[0]}
+                      alt=""
                       width={64}
                       height={48}
-                      className="w-full h-full object-cover opacity-80" 
-                     />
+                      className="w-full h-full object-cover opacity-80"
+                    />
                   ) : (
                     <Clock size={16} className="text-slate-300" />
                   )}

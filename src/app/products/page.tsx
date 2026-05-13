@@ -32,7 +32,7 @@ export default function ProductsPage() {
           fetch("/api/products"),
           fetch("/api/categories?type=product")
         ]);
-        
+
         const productsData = await productsRes.json();
         const categoriesData = await categoriesRes.json();
 
@@ -61,8 +61,8 @@ export default function ProductsPage() {
   const filteredProducts = useMemo(() => {
     return products.filter(p => {
       const matchCategory = activeCategory === "전체" || p.category === activeCategory;
-      const matchSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                          p.spec.toLowerCase().includes(searchQuery.toLowerCase());
+      const matchSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        p.spec.toLowerCase().includes(searchQuery.toLowerCase());
       return matchCategory && matchSearch;
     });
   }, [products, activeCategory, searchQuery]);
@@ -73,9 +73,9 @@ export default function ProductsPage() {
 
   return (
     <div className="min-h-screen bg-[#fafafa] pb-40">
-      <SubHero 
-        title="HYOSUNG LINEUP" 
-        subtitle="전국 최대 규모의 전력 자재 인벤토리. 실시간으로 변동되는 재고 현황을 확인하세요." 
+      <SubHero
+        title="제품 정보"
+        subtitle=""
       />
 
       <main className="max-w-7xl mx-auto px-6">
@@ -83,29 +83,28 @@ export default function ProductsPage() {
         <div className="sticky top-20 z-30 flex flex-col gap-4 -mt-10 mb-20">
           {/* Top: Category Tabs with Horizontal Scroll */}
           <div className="bg-white/80 backdrop-blur-md p-3 rounded-[2rem] border border-slate-100 shadow-xl shadow-slate-200/20 flex items-center overflow-hidden">
-             <div className="flex items-center gap-3 px-6 border-r border-slate-100 shrink-0">
-               <Filter size={16} className="text-primary" />
-             </div>
-             <div className="flex items-center gap-2 overflow-x-auto no-scrollbar px-4 py-1 flex-1">
-               {categories.map((cat) => (
-                 <button
-                   key={cat}
-                   onClick={() => { setActiveCategory(cat); setDisplayCount(12); }}
-                   className={`px-8 py-3 rounded-xl text-sm font-black uppercase tracking-widest whitespace-nowrap transition-all duration-300 transform cursor-pointer ${
-                     activeCategory === cat 
-                       ? "bg-slate-950 text-white shadow-xl shadow-slate-900/20 scale-105 ring-2 ring-primary/20" 
-                       : "text-slate-400 hover:text-slate-950 hover:bg-white hover:scale-105 hover:shadow-lg hover:border-primary/30 border border-transparent"
-                   }`}
-                 >
-                   {cat}
-                 </button>
-               ))}
-             </div>
+            <div className="flex items-center gap-3 px-6 border-r border-slate-100 shrink-0">
+              <Filter size={16} className="text-primary" />
+            </div>
+            <div className="flex items-center gap-2 overflow-x-auto no-scrollbar px-4 py-1 flex-1">
+              {categories.map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => { setActiveCategory(cat); setDisplayCount(12); }}
+                  className={`px-8 py-3 rounded-xl text-sm font-black uppercase tracking-widest whitespace-nowrap transition-all duration-300 transform cursor-pointer ${activeCategory === cat
+                      ? "bg-slate-950 text-white shadow-xl shadow-slate-900/20 scale-105 ring-2 ring-primary/20"
+                      : "text-slate-400 hover:text-slate-950 hover:bg-white hover:scale-105 hover:shadow-lg hover:border-primary/30 border border-transparent"
+                    }`}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
           </div>
 
           {/* Bottom: Search bar */}
           <div className="relative max-w-md mx-auto w-full group">
-            <input 
+            <input
               type="text"
               placeholder="모델명 또는 스펙 검색..."
               value={searchQuery}
@@ -138,12 +137,12 @@ export default function ProductsPage() {
                       <div className="flex flex-col bg-white border border-slate-100 rounded-[2.5rem] overflow-hidden hover:border-primary/50 hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.1)] transition-all duration-700 p-2">
                         <div className="aspect-square bg-slate-50 rounded-[2rem] overflow-hidden relative flex items-center justify-center">
                           {item.imageUrls?.[0] ? (
-                            <Image 
-                              src={item.imageUrls[0]} 
-                              alt={item.name} 
+                            <Image
+                              src={item.imageUrls[0]}
+                              alt={item.name}
                               fill
                               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-                              className="object-cover group-hover:scale-110 transition-transform duration-700" 
+                              className="object-cover group-hover:scale-110 transition-transform duration-700"
                             />
                           ) : (
                             <div className="flex flex-col items-center gap-4 opacity-10">
@@ -155,14 +154,14 @@ export default function ProductsPage() {
                           </div>
                         </div>
                         <div className="p-8">
-                           <div className="text-xs font-black text-primary uppercase tracking-[0.4em] mb-3">{item.category}</div>
-                           <h3 className="text-slate-950 font-black text-lg group-hover:text-primary transition-colors leading-tight mb-4">{item.name}</h3>
-                           <div className="pt-6 border-t border-slate-50 flex justify-between items-center group/more">
-                             <span className="text-sm font-black tracking-widest text-slate-300 group-hover:text-slate-950 transition-colors uppercase">상세 보기</span>
-                             <div className="w-10 h-10 rounded-full border border-slate-100 flex items-center justify-center group-hover:bg-primary group-hover:border-primary transition-all cursor-pointer">
-                               <Plus size={18} className="text-slate-300 group-hover:text-white" />
-                             </div>
-                           </div>
+                          <div className="text-xs font-black text-primary uppercase tracking-[0.4em] mb-3">{item.category}</div>
+                          <h3 className="text-slate-950 font-black text-lg group-hover:text-primary transition-colors leading-tight mb-4">{item.name}</h3>
+                          <div className="pt-6 border-t border-slate-50 flex justify-between items-center group/more">
+                            <span className="text-sm font-black tracking-widest text-slate-300 group-hover:text-slate-950 transition-colors uppercase">상세 보기</span>
+                            <div className="w-10 h-10 rounded-full border border-slate-100 flex items-center justify-center group-hover:bg-primary group-hover:border-primary transition-all cursor-pointer">
+                              <Plus size={18} className="text-slate-300 group-hover:text-white" />
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </Link>

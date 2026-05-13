@@ -14,7 +14,7 @@ export default function AboutClient({ initialHistory, initialAbout }: { initialH
   const [editingItem, setEditingItem] = useState<any>(null);
   const [loading, setLoading] = useState(false);
   const [aboutLoading, setAboutLoading] = useState(false);
-  
+
   const aboutFileInputRef = useRef<HTMLInputElement>(null);
   const [aboutPreview, setAboutPreview] = useState<string>(initialAbout?.mainImage || "");
 
@@ -44,7 +44,7 @@ export default function AboutClient({ initialHistory, initialAbout }: { initialH
 
   const handleAboutSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
+
     const formData = new FormData(e.currentTarget);
     const existingMainImage = formData.get('existingMainImage') as string;
     const mainImageFile = formData.get('mainImage') as File;
@@ -77,7 +77,7 @@ export default function AboutClient({ initialHistory, initialAbout }: { initialH
     setLoading(true);
     const formData = new FormData(e.currentTarget);
     const data = Object.fromEntries(formData.entries());
-    
+
     try {
       let result;
       if (editingItem) {
@@ -103,8 +103,8 @@ export default function AboutClient({ initialHistory, initialAbout }: { initialH
   };
 
   const columns = [
-    { 
-      key: 'order', 
+    {
+      key: 'order',
       label: '순서',
       render: (item: any) => (
         <div className="flex items-center justify-center w-10 h-10 rounded-full bg-slate-50 text-slate-400 font-black text-sm border border-slate-100">
@@ -112,19 +112,19 @@ export default function AboutClient({ initialHistory, initialAbout }: { initialH
         </div>
       )
     },
-    { 
-      key: 'year', 
+    {
+      key: 'year',
       label: '연도',
       render: (item: any) => <span className="text-xl font-black text-slate-900">{item.year}</span>
     },
-    { 
-      key: 'month', 
+    {
+      key: 'month',
       label: '월',
       render: (item: any) => <span className="font-black text-amber-600">{item.month ? `${item.month}월` : '-'}</span>
     },
     { key: 'title', label: '주요 성과/사건' },
-    { 
-      key: 'content', 
+    {
+      key: 'content',
       label: '상세 내용',
       render: (item: any) => <span className="text-xs text-slate-400 font-bold leading-tight line-clamp-1">{item.content || '-'}</span>
     },
@@ -132,28 +132,28 @@ export default function AboutClient({ initialHistory, initialAbout }: { initialH
 
   return (
     <div className="pb-20 space-y-16">
-      <AdminHeader 
+      <AdminHeader
         title="기업 프로필 및 연혁 관리"
-        description="효성전기의 정체성을 정의하는 메인 이미지와 핵심 가치, 그리고 지난 20년의 발자취를 관리합니다."
+        description="효성전기의 정체성을 정의하는 메인 이미지와 핵심 가치를 관리합니다."
       />
 
       {/* About Info Management */}
       <section className="bg-white rounded-[3rem] p-12 border border-slate-100 shadow-xl shadow-slate-200/20 relative overflow-hidden">
         <div className="flex items-center gap-4 mb-10">
-           <div className="w-12 h-12 rounded-2xl bg-amber-50 flex items-center justify-center text-amber-600">
-             <ImageIcon size={24} />
-           </div>
-           <div>
-             <h2 className="text-2xl font-black text-slate-950 uppercase tracking-tight">기업 소개 메인 설정</h2>
-             <p className="text-sm text-slate-400 font-bold uppercase tracking-widest">About 페이지 상단 비주얼 및 기업 철학</p>
-           </div>
+          <div className="w-12 h-12 rounded-2xl bg-amber-50 flex items-center justify-center text-amber-600">
+            <ImageIcon size={24} />
+          </div>
+          <div>
+            <h2 className="text-2xl font-black text-slate-950 uppercase tracking-tight">기업 소개 메인 설정</h2>
+            <p className="text-sm text-slate-400 font-bold uppercase tracking-widest">About 페이지 상단 비주얼 및 기업 철학</p>
+          </div>
         </div>
 
         <form onSubmit={handleAboutSubmit} className="grid grid-cols-1 lg:grid-cols-12 gap-12">
           {/* Image Upload Area */}
           <div className="lg:col-span-4 space-y-6">
             <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-2">기업 소개 메인 이미지</label>
-            <div 
+            <div
               onClick={() => aboutFileInputRef.current?.click()}
               className="aspect-square bg-slate-50 border-2 border-dashed border-slate-200 rounded-[2.5rem] relative overflow-hidden group cursor-pointer hover:border-amber-500/50 transition-all duration-500"
             >
@@ -166,15 +166,15 @@ export default function AboutClient({ initialHistory, initialAbout }: { initialH
                 </div>
               )}
               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                 <span className="text-white text-sm font-black uppercase tracking-widest">이미지 변경</span>
+                <span className="text-white text-sm font-black uppercase tracking-widest">이미지 변경</span>
               </div>
-              <input 
-                type="file" 
-                ref={aboutFileInputRef} 
-                name="mainImage" 
-                onChange={handleAboutFileChange} 
-                accept="image/*" 
-                className="hidden" 
+              <input
+                type="file"
+                ref={aboutFileInputRef}
+                name="mainImage"
+                onChange={handleAboutFileChange}
+                accept="image/*"
+                className="hidden"
               />
               <input type="hidden" name="existingMainImage" value={initialAbout?.mainImage || ""} />
             </div>
@@ -198,30 +198,43 @@ export default function AboutClient({ initialHistory, initialAbout }: { initialH
 
             <div className="space-y-3">
               <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-2">기업 철학 (Philosophy)</label>
-              <textarea 
-                name="philosophy" 
-                defaultValue={initialAbout?.philosophy || ""} 
-                rows={4} 
+              <textarea
+                name="philosophy"
+                defaultValue={initialAbout?.philosophy || ""}
+                rows={4}
                 required
-                className="w-full px-8 py-6 bg-slate-50 border border-slate-100 rounded-[2rem] font-bold text-lg focus:ring-4 focus:ring-amber-500/10 focus:border-amber-500 transition-all outline-none resize-none" 
+                className="w-full px-8 py-6 bg-slate-50 border border-slate-100 rounded-[2rem] font-bold text-lg focus:ring-4 focus:ring-amber-500/10 focus:border-amber-500 transition-all outline-none resize-none"
                 placeholder="기업의 핵심 철학을 입력하세요. (About 페이지 상단 노출)"
               />
             </div>
             <div className="space-y-3">
               <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-2">미래 비전 (Vision)</label>
-              <textarea 
-                name="vision" 
-                defaultValue={initialAbout?.vision || ""} 
-                rows={4} 
+              <textarea
+                name="vision"
+                defaultValue={initialAbout?.vision || ""}
+                rows={4}
                 required
-                className="w-full px-8 py-6 bg-slate-50 border border-slate-100 rounded-[2rem] font-bold text-lg focus:ring-4 focus:ring-amber-500/10 focus:border-amber-500 transition-all outline-none resize-none" 
+                className="w-full px-8 py-6 bg-slate-50 border border-slate-100 rounded-[2rem] font-bold text-lg focus:ring-4 focus:ring-amber-500/10 focus:border-amber-500 transition-all outline-none resize-none"
                 placeholder="효성전기가 그리는 미래를 입력하세요."
               />
             </div>
-            
+            <div className="space-y-3">
+              <div className="flex justify-between items-center ml-2">
+                <label className="text-xs font-black uppercase tracking-widest text-slate-400">CEO 인사말 (Greeting)</label>
+                <span className="text-[10px] text-amber-600 font-bold tracking-tight">💡 내용을 비우고 저장하면 기본값으로 초기화(삭제)됩니다.</span>
+              </div>
+              <textarea
+                name="greeting"
+                defaultValue={initialAbout?.greeting || ""}
+                rows={6}
+                className="w-full px-8 py-6 bg-slate-50 border border-slate-100 rounded-[2rem] font-bold text-lg focus:ring-4 focus:ring-amber-500/10 focus:border-amber-500 transition-all outline-none resize-none"
+                placeholder="CEO 인사말을 여러 문단으로 자유롭게 입력하세요. 줄바꿈은 화면에서 문단으로 자동 분리됩니다."
+              />
+            </div>
+
             <div className="flex justify-end pt-4">
-              <button 
-                type="submit" 
+              <button
+                type="submit"
                 disabled={aboutLoading}
                 className="flex items-center gap-4 px-12 py-5 bg-slate-950 text-white rounded-2xl font-black hover:bg-amber-600 transition-all active:scale-95 shadow-2xl shadow-slate-950/20 disabled:opacity-50"
               >
@@ -240,7 +253,7 @@ export default function AboutClient({ initialHistory, initialAbout }: { initialH
             <h2 className="text-3xl font-black text-slate-950 uppercase tracking-tight">연혁 데이터베이스</h2>
             <p className="text-sm text-slate-400 font-bold uppercase tracking-widest">역대 주요 성과 및 사건 목록</p>
           </div>
-          <button 
+          <button
             onClick={handleCreate}
             className="flex items-center gap-4 px-10 py-5 bg-amber-500 text-white rounded-2xl font-black hover:bg-amber-600 transition-all shadow-xl shadow-amber-500/20 active:scale-95"
           >
@@ -249,16 +262,16 @@ export default function AboutClient({ initialHistory, initialAbout }: { initialH
           </button>
         </div>
 
-        <AdminTable 
-          columns={columns} 
-          data={initialHistory} 
+        <AdminTable
+          columns={columns}
+          data={initialHistory}
           onEdit={handleEdit}
           onDelete={handleDelete}
         />
       </section>
 
-      <AdminModal 
-        isOpen={isModalOpen} 
+      <AdminModal
+        isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         title={editingItem ? "연혁 정보 수정" : "신규 연혁 등록"}
       >
@@ -285,21 +298,21 @@ export default function AboutClient({ initialHistory, initialAbout }: { initialH
           </div>
 
           <div className="space-y-3">
-             <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-2">노출 순서 (정렬 순서)</label>
-             <div className="relative">
-               <input 
-                 name="order" 
-                 type="number" 
-                 min="1"
-                 required
-                 defaultValue={editingItem?.order ?? (initialHistory.length > 0 ? Math.max(...initialHistory.map(h => h.order || 0)) + 1 : 1)} 
-                 className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl font-bold focus:ring-2 focus:ring-amber-500/20 transition-all outline-none" 
-                 placeholder="숫자가 클수록 상단에 노출됩니다" 
-               />
-               <div className="mt-2 px-2 text-[10px] text-slate-400 font-bold uppercase tracking-widest">
-                 💡 팁: 숫자가 클수록 먼저 보입니다. 최신 연혁을 등록할 때는 기존보다 큰 숫자를 사용하세요. (현재 권장 순서: {initialHistory.length > 0 ? Math.max(...initialHistory.map(h => h.order || 0)) + 1 : 1})
-               </div>
-             </div>
+            <label className="text-xs font-black uppercase tracking-widest text-slate-400 ml-2">노출 순서 (정렬 순서)</label>
+            <div className="relative">
+              <input
+                name="order"
+                type="number"
+                min="1"
+                required
+                defaultValue={editingItem?.order ?? (initialHistory.length > 0 ? Math.max(...initialHistory.map(h => h.order || 0)) + 1 : 1)}
+                className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl font-bold focus:ring-2 focus:ring-amber-500/20 transition-all outline-none"
+                placeholder="숫자가 클수록 상단에 노출됩니다"
+              />
+              <div className="mt-2 px-2 text-[10px] text-slate-400 font-bold uppercase tracking-widest">
+                💡 팁: 숫자가 클수록 먼저 보입니다. 최신 연혁을 등록할 때는 기존보다 큰 숫자를 사용하세요. (현재 권장 순서: {initialHistory.length > 0 ? Math.max(...initialHistory.map(h => h.order || 0)) + 1 : 1})
+              </div>
+            </div>
           </div>
 
           <div className="pt-8 border-t border-slate-50 flex justify-end gap-5">

@@ -475,6 +475,7 @@ export async function updateAbout(formData: FormData) {
     const subtitle = formData.get("subtitle") as string;
     const philosophy = formData.get("philosophy") as string;
     const vision = formData.get("vision") as string;
+    const greeting = formData.get("greeting") as string;
     const mainImageFile = formData.get("mainImage") as File;
     const existingMainImage = formData.get("existingMainImage") as string;
 
@@ -494,6 +495,7 @@ export async function updateAbout(formData: FormData) {
         subtitle,
         philosophy,
         vision,
+        greeting,
         mainImage,
       },
       create: {
@@ -502,6 +504,7 @@ export async function updateAbout(formData: FormData) {
         subtitle,
         philosophy,
         vision,
+        greeting,
         mainImage,
       },
     });

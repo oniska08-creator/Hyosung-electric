@@ -13,9 +13,9 @@ export default function ProductsClient({ initialProducts, categories }: { initia
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingItem, setEditingItem] = useState<any>(null);
   const [loading, setLoading] = useState(false);
-  
+
   // 누적 이미지 관리를 위한 상태
-  const [pendingImages, setPendingImages] = useState<{file: File, preview: string}[]>([]);
+  const [pendingImages, setPendingImages] = useState<{ file: File, preview: string }[]>([]);
   const [existingImagesToKeep, setExistingImagesToKeep] = useState<string[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -50,7 +50,7 @@ export default function ProductsClient({ initialProducts, categories }: { initia
     }));
 
     setPendingImages(prev => [...prev, ...newPending]);
-    
+
     // Reset input so same file can be selected again if needed
     if (fileInputRef.current) fileInputRef.current.value = '';
   };
@@ -75,9 +75,9 @@ export default function ProductsClient({ initialProducts, categories }: { initia
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-    
+
     const formData = new FormData(e.currentTarget);
-    
+
     try {
       // Append files
       pendingImages.forEach(({ file }) => {
@@ -101,7 +101,7 @@ export default function ProductsClient({ initialProducts, categories }: { initia
       } else {
         await createProduct(formData);
       }
-      
+
       // Cleanup previews
       pendingImages.forEach(img => URL.revokeObjectURL(img.preview));
       finishSubmit();
@@ -120,8 +120,8 @@ export default function ProductsClient({ initialProducts, categories }: { initia
   };
 
   const columns = [
-    { 
-      key: 'imageUrls', 
+    {
+      key: 'imageUrls',
       label: '이미지',
       render: (item: any) => (
         <div className="w-20 h-14 bg-slate-50 rounded-2xl overflow-hidden shadow-sm border border-slate-100">
@@ -133,13 +133,13 @@ export default function ProductsClient({ initialProducts, categories }: { initia
     },
     { key: 'category', label: '카테고리' },
     { key: 'name', label: '제품명' },
-    { 
-      key: 'price', 
+    {
+      key: 'price',
       label: '가격',
       render: (item: any) => `₩${(item.price || 0).toLocaleString()}`
     },
-    { 
-      key: 'isPublic', 
+    {
+      key: 'isPublic',
       label: '상태',
       render: (item: any) => (
         <span className={`px-4 py-1.5 text-sm font-black uppercase tracking-widest rounded-xl ${item.isPublic ? 'bg-amber-50 text-amber-600 border border-amber-100' : 'bg-slate-50 text-slate-400 border border-slate-100'}`}>
@@ -151,22 +151,22 @@ export default function ProductsClient({ initialProducts, categories }: { initia
 
   return (
     <div className="pb-20">
-      <AdminHeader 
-        title="제품 마스터 데이터"
-        description="전기 자재 인벤토리를 관리합니다. 카테고리별 정렬 및 상세 사양 편집이 가능합니다."
+      <AdminHeader
+        title="제품 관리"
+        description="제품 등록 및 수정이 가능합니다. 카테고리별 정렬 및 상세 사양 편집이 가능합니다."
         buttonText="신규 제품 등록"
         onButtonClick={handleCreate}
       />
 
-      <AdminTable 
-        columns={columns} 
-        data={initialProducts} 
+      <AdminTable
+        columns={columns}
+        data={initialProducts}
         onEdit={handleEdit}
         onDelete={handleDelete}
       />
 
-      <AdminModal 
-        isOpen={isModalOpen} 
+      <AdminModal
+        isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         title={editingItem ? "제품 정보 수정" : "신규 제품 등록"}
       >
@@ -222,19 +222,19 @@ export default function ProductsClient({ initialProducts, categories }: { initia
 
           <div className="space-y-6">
             <label className="text-sm font-black uppercase tracking-widest text-slate-400 ml-2">이미지 라이브러리</label>
-            
+
             {/* Upload Zone */}
-            <div 
+            <div
               onClick={() => fileInputRef.current?.click()}
               className="group cursor-pointer p-12 border-2 border-dashed border-slate-100 rounded-[2.5rem] bg-slate-50/30 flex flex-col items-center justify-center gap-4 hover:border-amber-500/40 hover:bg-amber-50/10 transition-all duration-500"
             >
-              <input 
-                type="file" 
+              <input
+                type="file"
                 ref={fileInputRef}
                 onChange={handleFileChange}
-                multiple 
-                accept="image/*" 
-                className="hidden" 
+                multiple
+                accept="image/*"
+                className="hidden"
               />
               <div className="w-16 h-16 rounded-full bg-white shadow-xl flex items-center justify-center text-slate-400 group-hover:scale-110 group-hover:text-amber-600 transition-all duration-500">
                 <UploadCloud size={32} />
@@ -253,8 +253,8 @@ export default function ProductsClient({ initialProducts, categories }: { initia
                   <div key={`existing-${idx}`} className="group relative aspect-square rounded-2xl overflow-hidden border-2 border-white shadow-sm">
                     <img src={url} alt="existing" className="w-full h-full object-cover" />
                     <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                      <button 
-                        type="button" 
+                      <button
+                        type="button"
                         onClick={() => removeExistingImage(idx)}
                         className="w-8 h-8 rounded-full bg-white text-rose-500 flex items-center justify-center hover:scale-110 transition-transform"
                       >
@@ -270,8 +270,8 @@ export default function ProductsClient({ initialProducts, categories }: { initia
                   <div key={`pending-${idx}`} className="group relative aspect-square rounded-2xl overflow-hidden border-2 border-amber-300 shadow-md">
                     <img src={img.preview} alt="pending" className="w-full h-full object-cover" />
                     <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                      <button 
-                        type="button" 
+                      <button
+                        type="button"
                         onClick={() => removePendingImage(idx)}
                         className="w-8 h-8 rounded-full bg-white text-rose-500 flex items-center justify-center hover:scale-110 transition-transform"
                       >

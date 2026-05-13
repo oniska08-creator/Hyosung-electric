@@ -72,6 +72,7 @@ model About {
   mainImage  String?
   philosophy String?
   vision     String?
+  greeting   String?
   updatedAt  DateTime @updatedAt
   subtitle   String?
   title      String?
